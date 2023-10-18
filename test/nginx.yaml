@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: nginx-222
+  name: nginx-333
 spec:
   containers:
     - name: nginx
