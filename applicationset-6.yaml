@@ -1,0 +1,31 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: policy-controller
+  namespace: argocd 
+spec:
+  generators:
+    - git:
+        repoURL: https://github.com/sigstore/helm-charts.git
+        revision: HEAD
+        files:
+          - path: "charts/policy-controller/**.json"
+  template:
+    metadata:
+      name: addon-test-6
+      finalizers:
+        - resources-finalizer.argocd.argoproj.io
+    spec:
+      project: default
+      source:
+        repoURL: https://github.com/sigstore/helm-charts.git
+        targetRevision: HEAD
+        path: charts/policy-controller
+      destination:
+        server: "https://kubernetes.default.svc"
+        namespace: cosign-system
+      syncPolicy:
+        automated:
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true

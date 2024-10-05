@@ -1,0 +1,44 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: policy-controller
+  namespace: argocd 
+spec:
+  generators:
+    - git:
+        repoURL: https://github.com/mk22042022/testprj.git
+        revision: HEAD
+        files:
+          - path: "policy-controller/**.json"
+  template:
+    metadata:
+      name: addon-test-6
+      finalizers:
+        - resources-finalizer.argocd.argoproj.io
+    spec:
+      project: default
+      source:
+        repoURL: https://github.com/mk22042022/testprj
+        targetRevision: HEAD
+        path: policy-controller
+        helm:
+          values: |
+            serviceAccount:
+              create: true
+              name: policy-controller-webhook
+              annotations:
+                iam.gke.io/gcp-service-account: policy-controller-sa@saca-dev.iam.gserviceaccount.com
+            webhook:
+              serviceAccount:
+                create: true
+                name: policy-controller-webhook
+                annotations:
+                  iam.gke.io/gcp-service-account: policy-controller-sa@saca-dev.iam.gserviceaccount.com
+      destination:
+        server: "https://kubernetes.default.svc"
+        namespace: cosign-system
+      syncPolicy:
+        automated:
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true

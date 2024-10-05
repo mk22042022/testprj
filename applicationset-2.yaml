@@ -1,0 +1,31 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: policy-controller
+  namespace: argocd
+spec:
+  generators:
+  - clusters:
+      values:
+        addonChartName: policy-controller
+        addonChartVersion: 0.9.0
+        addonChartRepository: https://github.com/sigstore/policy-controller
+        addonChart: policy-controller
+  template:
+    metadata:
+      name: addons-cosign-system
+    spec:
+      project: default
+      source:
+        repoURL: https://github.com/mk22042022/testprj
+        targetRevision: main
+        path: policy-controller
+        helm:
+          releaseName: policy-controller
+      destination:
+        namespace: policy-controller
+        namespace: https://kubernetes.default.svc
+      syncPolicy:
+        syncOptions:
+          - CreateNamespace=true
+          - ServerSideApply=true # Big CRDs.

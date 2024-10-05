@@ -1,0 +1,25 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: policy-controller
+  namespace: argocd
+spec:
+  generators:
+  template:
+    metadata:
+      name: addon-test-
+    spec:
+      project: default
+      source:
+        repoURL: https://github.com/mk22042022/testprj
+        targetRevision: main
+        path: policy-controller
+        helm:
+          releaseName: policy-controller
+      destination:
+        namespace: policy-controller
+        namespace: https://kubernetes.default.svc
+      syncPolicy:
+        syncOptions:
+          - CreateNamespace=true
+          - ServerSideApply=true # Big CRDs.

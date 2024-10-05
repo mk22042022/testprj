@@ -1,0 +1,24 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: policy-controller
+  namespace: argocd
+spec:
+  generators:
+    - clusters: {}
+  template:
+    metadata:
+      name: addons-cosign-system
+    spec:
+      project: default
+      source:
+        repoURL: 'git@https://github.com/mk22042022/testprj.git'
+        targetRevision: main
+        path: policy-controller
+      destination:
+        namespace: policy-controller
+        server: 192.168.49.2
+      syncPolicy:
+        syncOptions:
+          - CreateNamespace=true
+          - ServerSideApply=true # Big CRDs.

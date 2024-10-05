@@ -1,0 +1,36 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: policy-controller
+  namespace: argocd 
+spec:
+  generators:
+    - clusters:
+        values:
+          addonChartName: policy-controller
+          addonChartVersion: 0.7.0
+          addonChartRepository: https://github.com/mk22042022/testprj.git
+          addonChart: policy-controller
+  template:
+    metadata:
+      name: "policy-controller"
+    spec:
+      project: default
+      source:
+        repoURL: https://github.com/mk22042022/testprj
+        targetRevision: HEAD
+        path: policy-controller
+        helm:
+          values: |
+            webhook: 
+              webhookNames:
+                defaulting: "defaulting.clusterimagepolicy.sigstore.dev"
+                validating: "validating.clusterimagepolicy.sigstore.dev"
+      destination:
+        server: "https://kubernetes.default.svc"
+        namespace: cosign-system
+      syncPolicy:
+        automated:
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true
