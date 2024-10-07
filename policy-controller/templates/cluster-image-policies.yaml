@@ -6,7 +6,8 @@ metadata:
     argocd.argoproj.io/sync-wave: "-100"
 spec:
   images:
-    - glob: "cgr.dev/chainguard**"
+    - glob: "docker.io/library**"
  authorities:
     - static:
         action: pass
+---
