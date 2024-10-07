@@ -25,7 +25,10 @@ spec:
     - static:
         action: pass
 ---
-{- $env := .Values.environment }}
+environment:
+  imageRegistry: 'u/s/g.i'
+
+{{- $env := .Values.environment }}
 apiVersion: policy.sigstore.dev/v1alpha1
 kind: ClusterImagePolicy
 metadata:
