@@ -1,13 +1,7 @@
 apiVersion: policy.sigstore.dev/v1beta1
 kind: ClusterImagePolicy
 metadata:
-  name: cip-key-secret
-  annotations: 
-    argocd.argoproj.io/sync-wave: "-100"
+  name: image-policy
 spec:
   images:
-    - glob: "docker.io/library**"
- authorities:
-    - static:
-        action: pass
----
+  - glob: "**"
