@@ -5,6 +5,7 @@ metadata:
 spec:
   images:
   - glob: "**"
+  - glob: "index.docker.io/alpine**"
   - glob: "index.docker.io/google**"
   authorities:
     - static:
