@@ -1,4 +1,4 @@
-piVersion: policy.sigstore.dev/v1alpha1
+apiVersion: policy.sigstore.dev/v1alpha1
 kind: ClusterImagePolicy
 metadata:
   name: cip-key-secret
