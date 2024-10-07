@@ -13,17 +13,4 @@ spec:
     - static:
         action: pass
 ---
-apiVersion: policy.sigstore.dev/v1alpha1
-kind: ClusterImagePolicy
-metadata:
-  name: cip-key-secret-common
-  annotations:
-    argocd.argoproj.io/sync-wave: "-100"
-spec:
-  images:
-    - glob: "test/test**"
-  authorities:
-    - key:
-        secretRef:
-          name: cosignsecret
 {{- end }}
