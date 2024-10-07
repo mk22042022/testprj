@@ -1,15 +1,3 @@
-{{- if .Values.cosign.enable -}}
-apiVersion: v1
-kind: Namespace
-metadata:
-  labels:
-    policy.sigstore.dev/include: "true"
-    kubernetes.io/metadata.name: default
-  name: default
-spec:
-  finalizers:
-  - kubernetes
-{{- end }}
 {{- if .Values.cip.create -}}
 ---
 apiVersion: policy.sigstore.dev/v1beta1
@@ -33,7 +21,7 @@ metadata:
     argocd.argoproj.io/sync-wave: "-100"
 spec:
   images:
-    - glob: "{{ .Values.env.imageRegistry }}/test**"
+    - glob: "test/test**"
   authorities:
     - key:
         secretRef:
