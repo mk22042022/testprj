@@ -12,6 +12,9 @@ spec:
           - path: "policy-controller/**.json"
   template:
     metadata:
+      annotations:
+        platform: '{{.metadata.annotations.platform}}'
+        environment: '{{.metadata.annotations.environment}}'
       name: "policy-controller"
     spec:
       project: default
@@ -19,6 +22,17 @@ spec:
         repoURL: https://github.com/mk22042022/testprj
         targetRevision: HEAD
         path: policy-controller
+        helm:
+           ignoreMissingValueFiles: true
+           valueFiles:
+             {{- if eq .metadata.annotations.platform "g" }}
+             - values-g.yaml
+             {{- else if eq .metadata.annotations.platform "a" }}
+             - values-a.yaml
+             {{- end }}
+             {{- if and (eq .metadata.annotations.platform "a") (eq .metadata.annotations.environment "t") }}
+             - values-u.yaml
+             {{- end }}
       destination:
         server: "https://kubernetes.default.svc"
         namespace: cosign-system
