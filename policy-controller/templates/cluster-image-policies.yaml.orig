@@ -33,7 +33,11 @@ metadata:
     argocd.argoproj.io/sync-wave: "-100"
 spec:
   images:
-    - glob: "{{ .Values.env.imageRegistry }}/test**"
+    {{- range $imageName, $image := .Values.images }}
+    {{- if ne $imageName "s-e" }}
+    - glob: "{{ .Values.env.imageRegistry }}/{{ $imageName }}**"
+    {{- end }}
+    {{- end }}
   authorities:
     - key:
         secretRef:
