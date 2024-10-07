@@ -1,0 +1,46 @@
+images:
+  m-i:
+    t: 4
+    d: sha256
+  c-m:
+    t: 4
+    d: sha256
+  a-i:
+    t: 4
+    d: sha256
+  s-m:
+    t: 7
+    d: sha256
+  j-t:
+    t: 4
+    d: sha256
+  s-e:
+    t: 6
+    d: sha256
+  v-s:
+    t: 5
+    d: sha256
+  d-e:
+    t: 4
+    d: sha256
+  s-s:
+    t: 4
+    d: sha256
+  t-e:
+    t: 4
+    d: sha256
+  t-m:
+    t: 4
+    d: sha256
+  t-f-s:
+    t: 5
+    d: sha256
+  j-s:
+    t: 4
+    d: sha256
+  g-n-b:
+    tag: 4
+    d: sha256
+  g-d-b:
+    t: e
+    d: sha256

@@ -1,4 +1,17 @@
+{{- if .Values.cosign.enable -}}
+apiVersion: v1
+kind: Namespace
+metadata:
+  labels:
+    policy.sigstore.dev/include: "true"
+    kubernetes.io/metadata.name: default
+  name: default
+spec:
+  finalizers:
+  - kubernetes
+{{- end }}
 {{- if .Values.cip.create -}}
+---
 apiVersion: policy.sigstore.dev/v1beta1
 kind: ClusterImagePolicy
 metadata:
@@ -11,4 +24,23 @@ spec:
   authorities:
     - static:
         action: pass
+---
+{- $env := .Values.environment }}
+apiVersion: policy.sigstore.dev/v1alpha1
+kind: ClusterImagePolicy
+metadata:
+  name: cip-key-secret-common
+  annotations:
+    argocd.argoproj.io/sync-wave: "-100"
+spec:
+  images:
+    {{- range $imageName, $image := .Values.images }}
+    {{- if ne $imageName "s-e" }}
+    - glob: "{{ env.imageRegistry }}/{{ $imageName }}**"
+    {{- end }}
+    {{- end }}
+  authorities:
+    - key:
+        secretRef:
+          name: cosignsecret
 {{- end }}

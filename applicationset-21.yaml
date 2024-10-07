@@ -13,7 +13,7 @@ spec:
   template:
     metadata:
       annotations:
-        platform: '{{.metadata.annotations.platform}}'
+        platform: 'g'
         environment: '{{.metadata.annotations.environment}}'
       name: "policy-controller"
     spec:
@@ -26,6 +26,8 @@ spec:
            ignoreMissingValueFiles: true
            valueFiles:
              {{- if eq .metadata.annotations.platform "g" }}
+             - ./conf/d-g/env.yaml
+             - ./conf/d/images.yaml
              - values-g.yaml
              {{- else if eq .metadata.annotations.platform "a" }}
              - values-a.yaml
