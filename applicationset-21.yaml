@@ -1,0 +1,29 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: policy-controller
+  namespace: argocd 
+spec:
+  generators:
+    - git:
+        repoURL: https://github.com/mk22042022/testprj.git
+        revision: HEAD
+        files:
+          - path: "policy-controller/**.json"
+  template:
+    metadata:
+      name: "policy-controller"
+    spec:
+      project: default
+      source:
+        repoURL: https://github.com/mk22042022/testprj
+        targetRevision: HEAD
+        path: policy-controller
+      destination:
+        server: "https://kubernetes.default.svc"
+        namespace: cosign-system
+      syncPolicy:
+        automated:
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true
