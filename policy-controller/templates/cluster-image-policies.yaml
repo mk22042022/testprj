@@ -42,3 +42,4 @@ spec:
     - key:
         secretRef:
           name: cosignsecret
+{{- end }}
