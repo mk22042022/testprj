@@ -6,6 +6,7 @@ cosign:
 
 cip:
   create: true
+
 env:
   imageRegistry: "test-reg"
 
