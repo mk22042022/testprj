@@ -6,6 +6,9 @@ cosign:
 cip:
   create: true
 
+cosign-env:
+  enable : true
+
 installCRDs: true
 
 imagePullSecrets: []
