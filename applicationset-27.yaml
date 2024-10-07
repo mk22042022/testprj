@@ -24,7 +24,6 @@ spec:
         path: policy-controller
         helm:
           valueFiles:
-            - ../conf/d-g/env.yaml
             - ../conf/d/images.yaml
             - values-g.yaml
       destination:

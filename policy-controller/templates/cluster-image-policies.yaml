@@ -35,7 +35,7 @@ spec:
   images:
     {{- range $imageName, $image := .Values.images }}
     {{- if ne $imageName "s-e" }}
-    - glob: "{{ .Values.environment.imageRegistry }}/{{ $imageName }}**"
+    - glob: "{{ .Values.env.imageRegistry }}/{{ $imageName }}**"
     {{- end }}
     {{- end }}
   authorities:
