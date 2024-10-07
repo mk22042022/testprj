@@ -1,3 +1,4 @@
+{{- if .Values.cip.create -}}
 apiVersion: policy.sigstore.dev/v1beta1
 kind: ClusterImagePolicy
 metadata:
@@ -10,3 +11,4 @@ spec:
   authorities:
     - static:
         action: pass
+{{- end }}

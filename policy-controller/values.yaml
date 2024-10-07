@@ -3,6 +3,9 @@ cosign:
   cosignPub: ""
   webhookName: "policy.sigstore.dev"
 
+cip:
+  create: false
+
 installCRDs: true
 
 imagePullSecrets: []
