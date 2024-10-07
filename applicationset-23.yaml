@@ -24,6 +24,7 @@ spec:
         path: policy-controller
         helm:
           valueFiles:
+            - ./conf/d-g/env.yaml
             - values-g.yaml
       destination:
         server: "https://kubernetes.default.svc"
