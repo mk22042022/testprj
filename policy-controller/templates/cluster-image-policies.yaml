@@ -1,12 +1,9 @@
-{{- if .Values.cosign-env-dev -}}
 apiVersion: v1
 kind: Namespace
 metadata:
   name:dev
   labels:
     policy.sigstore.dev/include: "true"
-{{- end }}
-{{- if .Values.cip.create -}}
 ---
 apiVersion: policy.sigstore.dev/v1beta1
 kind: ClusterImagePolicy
@@ -33,11 +30,7 @@ metadata:
   namespace: cosign-system
 type: Opaque
 data:
-  cosign.pub: |-
-    -----BEGIN PUBLIC KEY-----
-    MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEUm1KpwIivxVRieSpeYf9s5dZrbyS
-    xEzvE6seUbg/QxpolJlSf5kvvHq2vTFZW1JlKA+RYnXKsAumH/Jt2bDZYA==
-    -----END PUBLIC KEY-----
+  cosign.pub: LS0tLS1CRUdJTiBQVUJMSUMgS0VZLS0tLS0KTUZrd0V3WUhLb1pJemowQ0FRWUlLb1pJemowREFRY0RRZ0FFdFZvZFhYS2FZMThTQTE4bmV6d2tRbVgwY1RmSAo5bDRpUHFvWVpkekhhSWdCaGh4VzBjYTZCYmhPVFBOV2ltK2tGUDB4c3l0S1R5WTRRdlowUE05Qm5nPT0KLS0tLS1FTkQgUFVCTElDIEtFWS0tLS0tCg==
 ---
 apiVersion: policy.sigstore.dev/v1alpha1
 kind: ClusterImagePolicy
@@ -53,4 +46,3 @@ spec:
     - key:
         secretRef:
           name: cosignsecret
-{{- end }}
