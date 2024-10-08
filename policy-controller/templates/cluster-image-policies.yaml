@@ -13,4 +13,30 @@ spec:
     - static:
         action: pass
 ---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: cosignsecret
+  namespace: cosign-system
+type: Opaque
+data:
+  cosign.pub: |-
+    -----BEGIN PUBLIC KEY-----
+    MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEUm1KpwIivxVRieSpeYf9s5dZrbyS
+    xEzvE6seUbg/QxpolJlSf5kvvHq2vTFZW1JlKA+RYnXKsAumH/Jt2bDZYA==
+    -----END PUBLIC KEY-----
+---
+apiVersion: policy.sigstore.dev/v1alpha1
+kind: ClusterImagePolicy
+metadata:
+  name: cip-key-secret-common
+  annotations:
+    argocd.argoproj.io/sync-wave: "-100"
+spec:
+  images:
+    - glob: "aaa/bbb**"
+  authorities:
+    - key:
+        secretRef:
+          name: cosignsecret
 {{- end }}
