@@ -46,6 +46,9 @@ metadata:
 spec:
   images:
     - glob: "aaa/bbb**"
+    {{- range $i, $imagename := .Values.images }}
+    - glob: "eee/{{ $i }}**"
+    {{- end }}
   authorities:
     - key:
         secretRef:
