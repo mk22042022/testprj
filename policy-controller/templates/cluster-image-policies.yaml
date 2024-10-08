@@ -1,3 +1,11 @@
+{{- if .Values.cosign-env-dev -}}
+apiVersion: v1
+kind: Namespace
+metadata:
+  name:dev
+  labels:
+    policy.sigstore.dev/include: "true"
+{{- end }}
 {{- if .Values.cip.create -}}
 ---
 apiVersion: policy.sigstore.dev/v1beta1

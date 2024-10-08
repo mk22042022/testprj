@@ -6,7 +6,7 @@ cosign:
 cip:
   create: true
 
-cosign-env:
+cosign-env-dev:
   enable : true
 
 env:
