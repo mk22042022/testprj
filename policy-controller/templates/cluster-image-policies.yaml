@@ -14,6 +14,11 @@ spec:
         action: pass
 ---
 apiVersion: v1
+kind: Namespace
+metadata:
+  name: cosign-system
+---
+apiVersion: v1
 kind: Secret
 metadata:
   name: cosignsecret
@@ -30,8 +35,6 @@ apiVersion: policy.sigstore.dev/v1alpha1
 kind: ClusterImagePolicy
 metadata:
   name: cip-key-secret-common
-  annotations:
-    argocd.argoproj.io/sync-wave: "-100"
 spec:
   images:
     - glob: "aaa/bbb**"
