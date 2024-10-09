@@ -33,10 +33,10 @@ spec:
   images:
     - glob: "aaa/bbb**"
     - glob: "{{ print .Values.environment }}/ggg**"
+    {{- $registry := .Values.environment.imageregistry | default "default-registry.example.com" }}
     {{- range $i, $imagename := .Values.images }}
     - glob: "eee/{{ $i }}**"
-    - glob: "{{ print .Values.environment }}/ggg**"
-    - glob: "{{ .Values.environment.imageregistry }}/ggg**"
+    - glob: "{{ $registry }}/{{ $i }}**"
     {{- end }}
   authorities:
     - key:
