@@ -1,4 +1,3 @@
-{- $env := .Values.environment -}}
 apiVersion: policy.sigstore.dev/v1beta1
 kind: ClusterImagePolicy
 metadata:
@@ -35,7 +34,7 @@ spec:
     - glob: "aaa/bbb**"
     {{- range $i, $imagename := .Values.images }}
     - glob: "eee/{{ $i }}**"
-    - glob: "{{ $env.imageRegistry }}/{{ $i }}**"
+    - glob: "{{ .Values.environment.imageRegistry }}/{{ $i }}**"
     {{- end }}
   authorities:
     - key:
