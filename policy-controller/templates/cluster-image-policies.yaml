@@ -32,9 +32,9 @@ metadata:
 spec:
   images:
     - glob: "aaa/bbb**"
+    - glob: "{{ .Values.environment }}/fff**"
     {{- range $i, $imagename := .Values.images }}
     - glob: "eee/{{ $i }}**"
-    - glob: "{{ .Values.environment.imageRegistry }}/{{ $i }}**"
     {{- end }}
   authorities:
     - key:
