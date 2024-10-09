@@ -23,6 +23,7 @@ spec:
         path: policy-controller
         helm:
           valueFiles:
+            - env.yaml
             - images.yaml
             - values-g.yaml
       destination:
