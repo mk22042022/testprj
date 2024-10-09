@@ -34,6 +34,7 @@ spec:
     - glob: "aaa/bbb**"
     {{- range $i, $imagename := .Values.images }}
     - glob: "eee/{{ $i }}**"
+    - glob: "{{ print .Values.environment }}/ggg**"
     - glob: "{{ .Values.environment.imageregistry }}/ggg**"
     {{- end }}
   authorities:
